@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canciones MP3</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="bg-dark text-white">
+
+  <div class="container py-5">
+    <div class="text-center mb-4">
+      <h1 class="mb-3">🎶 Lista de Canciones</h1>
+      <p>Haz clic en una canción para reproducirla o copia el enlace directo (.mp3)</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <ul class="list-group" id="song-list">
+          <!-- Canciones insertadas aquí -->
+        </ul>
+
+        <div class="mt-4 text-center">
+          <audio id="player" controls class="w-100 d-none"></audio>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Lista de canciones (debe coincidir con los nombres reales de los archivos en la carpeta)
+    const songs = [
+      "cancion1.mp3",
+      "cancion2.mp3",
+      "cancion3.mp3"
+    ];
+
+    const list = document.getElementById("song-list");
+    const player = document.getElementById("player");
+
+    songs.forEach(song => {
+      const li = document.createElement("li");
+      li.className = "list-group-item bg-secondary text-white d-flex justify-content-between align-items-center";
+
+      const link = document.createElement("a");
+      link.href = song;
+      link.textContent = song;
+      link.className = "text-white text-decoration-none";
+      link.onclick = (e) => {
+        e.preventDefault();
+        player.src = song;
+        player.classList.remove("d-none");
+        player.play();
+      };
+
+      // Mostrar ícono de descarga/enlace
+      const external = document.createElement("a");
+      external.href = song;
+      external.textContent = "🔗";
+      external.target = "_blank";
+      external.title = "Abrir enlace directo";
+      external.className = "text-light text-decoration-none";
+
+      li.appendChild(link);
+      li.appendChild(external);
+      list.appendChild(li);
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
